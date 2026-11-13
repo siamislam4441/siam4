@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#060d0c">
+<title>NOVA VAULT — Dark Split Edition</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #050a09;
+  --card-bg: #0c1615;
+  --card-border: #173632;
+  --input-bg: #08100f;
+  --input-border: #1d423d;
+  --accent: #0f766e;
+  --accent-light: #14b8a6;
+  --gold: #f59e0b;
+  --text: #f0fdf9;
+  --muted: #8faea9;
+  --red: #fb7185;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(15, 118, 110, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(245, 158, 11, 0.1) 0%, transparent 45%),
+    var(--bg);
+  color: var(--text);
+  font-family: 'Inter', 'Hind Siliguri', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #1d423d; border-radius: 10px; }
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ================= SPLIT AUTH CARD ================= */
+.auth-page {
+  width: 100%;
+  padding: 20px 16px;
+  display: grid;
+  place-items: center;
+}
+
+.split-card {
+  position: relative;
+  width: min(1020px, 100%);
+  min-height: 610px;
+  background: var(--card-bg);
+  border: 2.5px solid var(--card-border);
+  border-radius: 26px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.75);
+}
+
+/* Left Form Pane */
+.form-pane {
+  padding: 40px 48px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #0e1a18 0%, #091211 100%);
+}
+
+.brand-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.4px;
+  color: #fff;
+}
+
+.brand-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent-light), var(--gold));
+  color: #04100e;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.form-main {
+  margin: auto 0;
+  padding: 18px 0;
+}
+
+.form-main h1 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.input-box {
+  position: relative;
+  border: 1.5px solid var(--input-border);
+  background: var(--input-bg);
+  border-radius: 10px;
+  padding: 8px 14px 9px;
+  margin-bottom: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-box:focus-within {
+  border-color: var(--accent-light);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.16);
+}
+
+.input-box label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.input-box input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  padding-right: 34px;
+}
+
+.eye-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: 0;
+  color: var(--muted);
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+}
+
+.eye-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 0 22px;
+  font-size: 12.5px;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.remember input {
+  accent-color: var(--accent-light);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.forgot-btn {
+  background: none;
+  border: 0;
+  color: var(--red);
+  font-weight: 600;
+  font-size: 12.5px;
+}
+
+.forgot-btn:hover {
+  text-decoration: underline;
+}
+
+.btn-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: 1.5px solid var(--accent);
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 10px 24px rgba(15, 118, 110, 0.35);
+  transition: 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #115e59;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #e2e8f0;
+  border: 1.5px solid #28524c;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.btn-outline:hover:not(:disabled) {
+  border-color: var(--accent-light);
+  background: rgba(20, 184, 166, 0.08);
+  color: #fff;
+}
+
+.btn-primary:disabled, .btn-outline:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.msg {
+  font-size: 12.5px;
+  color: var(--red);
+  min-height: 20px;
+  margin-top: 12px;
+}
+
+.msg.ok {
+  color: #34d399;
+}
+
+.policy-note {
+  font-size: 11px;
+  color: #64827d;
+  line-height: 1.5;
+  margin-top: 14px;
+}
+
+/* Right Visual Artwork Slider Pane */
+.art-pane {
+  position: relative;
+  background: #061412;
+  overflow: hidden;
+  min-height: 320px;
+}
+
+.art-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 6s ease-out;
+  transform: scale(1.05);
+}
+
+.art-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.art-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.art-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 13, 12, 0.15) 0%, rgba(6, 13, 12, 0.35) 60%, rgba(6, 13, 12, 0.88) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px 28px 65px;
+}
+
+.art-badge {
+  width: fit-content;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #6ee7b7;
+  background: rgba(6, 13, 12, 0.72);
+  border: 1px solid rgba(110, 231, 183, 0.35);
+  padding: 4px 10px;
+  border-radius: 99px;
+  margin-bottom: 8px;
+  backdrop-filter: blur(6px);
+}
+
+.art-overlay h3 {
+  font-size: 21px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.25;
+}
+
+/* Bottom Right Slider Arrows */
+.art-controls {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 6;
+}
+
+.art-nav {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(12, 22, 21, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  backdrop-filter: blur(6px);
+  transition: 0.2s;
+}
+
+.art-nav:hover {
+  background: var(--accent);
+  border-color: var(--accent-light);
+}
+
+/* ================= DASHBOARD VIEW ================= */
+.dash-wrap {
+  max-width: 1120px;
+  width: 100%;
+  margin: auto;
+  padding: 24px 18px 60px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.pill {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6ee7b7;
+  border: 1px solid rgba(20, 184, 166, 0.35);
+  background: rgba(20, 184, 166, 0.1);
+  padding: 6px 13px;
+  border-radius: 99px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.head h2 {
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.stat small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 23px;
+  margin-top: 6px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  margin: 18px 0 22px;
+}
+
+.field {
+  width: 100%;
+  border: 1.5px solid var(--input-border);
+  background: var(--input-bg);
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 10px;
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+}
+
+.field:focus {
+  border-color: var(--accent-light);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 19px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.2s;
+}
+
+.item:hover {
+  border-color: var(--accent-light);
+  transform: translateY(-2px);
+}
+
+.item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cat {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-light);
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid rgba(20, 184, 166, 0.28);
+  padding: 3px 9px;
+  border-radius: 99px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.code-badge {
+  font-size: 11px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-family: monospace;
+}
+
+.item h3 {
+  margin: 10px 0 12px;
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+
+.data-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.data-text {
+  color: #cbd5e1;
+  overflow-wrap: anywhere;
+}
+
+.data-text b {
+  color: var(--muted);
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.mini-btns {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.icon-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.note-box {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--card-border);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  border-radius: 9px;
+}
+
+.btn-del {
+  background: rgba(251, 113, 133, 0.14);
+  color: #fda4af;
+  border: 1px solid rgba(251, 113, 133, 0.3);
+  font-weight: 600;
+}
+
+.btn-del:hover {
+  background: rgba(251, 113, 133, 0.25);
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--muted);
+  padding: 45px 20px;
+  border: 1px dashed var(--input-border);
+  border-radius: 18px;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 5, 0.84);
+  backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  z-index: 50;
+}
+
+.modalbox {
+  width: min(490px, 100%);
+  max-height: 92vh;
+  overflow-y: auto;
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+}
+
+.modalhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.close {
+  border: 0;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 20px;
+  display: grid;
+  place-items: center;
+}
+
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  background: #0f2926;
+  color: #fff;
+  border: 1px solid var(--accent-light);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 820px) {
+  .split-card {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    min-height: auto;
+  }
+  .art-pane {
+    order: -1;
+    min-height: 220px;
+  }
+  .art-overlay {
+    padding: 20px 20px 48px;
+  }
+  .art-overlay h3 {
+    font-size: 18px;
+  }
+  .form-pane {
+    padding: 28px 22px 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  .stats .stat:last-child { grid-column: 1 / -1; }
+  .grid, .row-2 { grid-template-columns: 1fr; }
+  .toolbar, .head { flex-direction: column; align-items: stretch; }
+  .btn-pair { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= AUTH VIEW ================= -->
+<section id="authView" class="auth-page">
+  <div class="split-card">
+    <!-- Left Form Column -->
+    <div class="form-pane">
+      <div class="brand-top">
+        <div class="brand-icon">N</div>
+        <span>NOVA VAULT</span>
+      </div>
+
+      <div class="form-main">
+        <h1 id="authTitle">Welcome Back!</h1>
+        <p id="authSub" class="subtitle">আপনার ব্যক্তিগত ভল্ট অ্যাকাউন্টে লগইন করুন।</p>
+
+        <div id="nameWrap" class="input-box hidden">
+          <label for="name">Full Name (আপনার নাম)</label>
+          <input id="name" maxlength="60" autocomplete="name" placeholder="যেমন: তানভীর আহমেদ">
+        </div>
+
+        <div class="input-box">
+          <label for="email">Email Address</label>
+          <input id="email" type="email" autocomplete="username" placeholder="name@gmail.com">
+        </div>
+
+        <div class="input-box">
+          <label for="password">Password</label>
+          <input id="password" type="password" autocomplete="current-password" placeholder="••••••••">
+          <button type="button" class="eye-btn" data-toggle="password" title="পাসওয়ার্ড দেখুন/লুকান"></button>
+        </div>
+
+        <div class="meta-row">
+          <label class="remember">
+            <input id="rememberMe" type="checkbox" checked>
+            <span>Remember me</span>
+          </label>
+          <button id="forgotBtn" type="button" class="forgot-btn">Forgot password?</button>
+        </div>
+
+        <div class="btn-pair">
+          <button id="primaryActionBtn" class="btn-primary" type="button">Login</button>
+          <button id="switchModeBtn" class="btn-outline" type="button">Create account</button>
+        </div>
+
+        <div id="authMsg" class="msg"></div>
+      </div>
+
+      <div class="policy-note">
+        শিক্ষামূলক ডেমো ভল্ট। লগইন বা সাইন-আপ করার মাধ্যমে আপনি আমাদের শর্তাবলী ও ডেটা পলিসিতে সম্মত হচ্ছেন।
+      </div>
+    </div>
+
+    <!-- Right Artwork Slideshow Column (Clean with bottom-right arrows) -->
+    <div class="art-pane" id="artSlider">
+      <div class="art-slide active">
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=85" alt="Emerald Botanical Art">
+        <div class="art-overlay">
+          <span class="art-badge">NATURE & SECURITY</span>
+          <h3>সব তথ্য, এক জায়গায়। সম্পূর্ণ নিজের নিয়ন্ত্রণে।</h3>
+        </div>
+      </div>
+
+      <div class="art-slide">
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1000&q=85" alt="AI Cyber Shield">
+        <div class="art-overlay">
+          <span class="art-badge">FIREBASE SYNCED VAULT</span>
+          <h3>যেকোনো ডিভাইস থেকে নিরাপদ ও দ্রুত অ্যাক্সেস।</h3>
+        </div>
+      </div>
+
+      <div class="art-slide">
+        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1000&q=85" alt="Digital Encryption Matrix">
+        <div class="art-overlay">
+          <span class="art-badge">PRIVATE WORKSPACE</span>
+          <h3>আপনার পরীক্ষামূলক অ্যাকাউন্ট ও নোট গুছিয়ে রাখুন।</h3>
+        </div>
+      </div>
+
+      <div class="art-controls">
+        <button id="prevArt" class="art-nav" type="button" aria-label="Previous">←</button>
+        <button id="nextArt" class="art-nav" type="button" aria-label="Next">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DASHBOARD APP VIEW ================= -->
+<section id="appView" class="dash-wrap hidden">
+  <header class="top-bar">
+    <div class="brand-top">
+      <div class="brand-icon">N</div>
+      <span>NOVA VAULT</span>
+    </div>
+    <div class="pill">● FIREBASE-SYNCED VAULT</div>
+  </header>
+
+  <div class="head">
+    <div>
+      <div style="font-size:11px;color:var(--accent-light);letter-spacing:1.8px;font-weight:700">PERSONAL DASHBOARD</div>
+      <h2>হ্যালো, <span id="userName" style="color:var(--accent-light)"></span></h2>
+      <div id="userEmail" style="color:var(--muted);font-size:13px"></div>
+    </div>
+    <button id="logoutBtn" class="btn-outline" type="button">লগআউট</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><small>মোট রেকর্ড</small><strong id="count">0</strong></div>
+    <div class="stat"><small>ভল্ট স্ট্যাটাস</small><strong style="font-size:17px;color:var(--accent-light);margin-top:8px">● Firebase Synced</strong></div>
+    <div class="stat"><small>সার্চ মোড</small><strong style="font-size:17px;color:var(--gold);margin-top:8px">লোকাল ফিল্টার</strong></div>
+  </div>
+
+  <div class="toolbar">
+    <input id="search" class="field" placeholder="কোড, নাম, ইমেইল বা ইউজারনেম দিয়ে খুঁজুন...">
+    <button id="addBtn" class="btn-primary" type="button" style="white-space:nowrap">＋ নতুন তথ্য</button>
+  </div>
+
+  <div id="records" class="grid"></div>
+</section>
+
+<!-- ================= ADD / EDIT MODAL ================= -->
+<div id="modal" class="modal hidden">
+  <div class="modalbox">
+    <div class="modalhead">
+      <h2 id="modalTitle" style="font-size:19px;font-weight:800">নতুন তথ্য</h2>
+      <button id="closeModal" class="close" type="button">×</button>
+    </div>
+    <input id="recordId" type="hidden">
+
+    <div class="input-box">
+      <label>নাম / সার্ভিস *</label>
+      <input id="title" placeholder="যেমন: Test account">
+    </div>
+
+    <div class="row-2">
+      <div class="input-box">
+        <label>ক্যাটাগরি</label>
+        <input id="category" placeholder="যেমন: Social">
+      </div>
+      <div class="input-box">
+        <label>ইউনিক কোড</label>
+        <input id="code" placeholder="যেমন: 2311">
+      </div>
+    </div>
+
+    <div class="input-box">
+      <label>ইমেইল / ইউজারনেম</label>
+      <input id="username" placeholder="পরীক্ষামূলক ইউজারনেম">
+    </div>
+
+    <div class="input-box">
+      <label>ডেমো পাসওয়ার্ড</label>
+      <input id="secret" type="password" placeholder="বাস্তব পাসওয়ার্ড নয়">
+      <button type="button" class="eye-btn" data-toggle="secret" title="পাসওয়ার্ড দেখুন/লুকান"></button>
+    </div>
+
+    <div class="input-box">
+      <label>নোট (ঐচ্ছিক)</label>
+      <input id="note" placeholder="অতিরিক্ত তথ্য">
+    </div>
+
+    <div class="actions">
+      <button id="saveBtn" class="btn-primary" type="button">সংরক্ষণ</button>
+      <button id="cancelBtn" class="btn-outline" type="button">বাতিল</button>
+    </div>
+    <div id="modalMsg" class="msg"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast">কপি করা হয়েছে!</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBYotDIvdtfG4boBBeC9AxriSaga4v44ZM",
+  authDomain: "nova-6bad7.firebaseapp.com",
+  projectId: "nova-6bad7",
+  storageBucket: "nova-6bad7.firebasestorage.app",
+  messagingSenderId: "914324972992",
+  appId: "1:914324972992:web:5b2f718cad181f4eecd425"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+let mode = "login", currentUser = null, records = [];
+
+const $ = id => document.getElementById(id);
+const say = (id, text, isOk = false) => {
+  const el = $(id);
+  if (!el) return;
+  el.textContent = text;
+  el.classList.toggle("ok", isOk);
+};
+
+/* --- ARTWORK SLIDESHOW CONTROLS --- */
+const slides = document.querySelectorAll("#artSlider .art-slide");
+let slideIdx = 0, slideTimer;
+
+function showSlide(n) {
+  slides[slideIdx].classList.remove("active");
+  slideIdx = (n + slides.length) % slides.length;
+  slides[slideIdx].classList.add("active");
+}
+
+function restartSlider() {
+  clearInterval(slideTimer);
+  slideTimer = setInterval(() => showSlide(slideIdx + 1), 4500);
+}
+
+$("prevArt").onclick = () => { showSlide(slideIdx - 1); restartSlider(); };
+$("nextArt").onclick = () => { showSlide(slideIdx + 1); restartSlider(); };
+restartSlider();
+
+/* --- TOAST --- */
+let toastTimer;
+function showToast(text) {
+  const t = $("toast");
+  t.textContent = "✓ " + text;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+/* --- PASSWORD EYE TOGGLE --- */
+const eyeOpen = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>`;
+const eyeOff = `<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>`;
+
+document.querySelectorAll(".eye-btn").forEach(btn => {
+  btn.innerHTML = eyeOpen;
+  btn.onclick = () => {
+    const inp = $(btn.dataset.toggle);
+    const hide = inp.type === "password";
+    inp.type = hide ? "text" : "password";
+    btn.innerHTML = hide ? eyeOff : eyeOpen;
+  };
+});
+
+function resetEye(id) {
+  const inp = $(id);
+  const btn = document.querySelector(`[data-toggle="${id}"]`);
+  if (inp) inp.type = "password";
+  if (btn) btn.innerHTML = eyeOpen;
+}
+
+/* --- MODE SWITCH --- */
+function setMode(next) {
+  mode = next;
+  const isSignup = mode === "signup";
+  $("nameWrap").classList.toggle("hidden", !isSignup);
+  $("forgotBtn").classList.toggle("hidden", isSignup);
+  say("authTitle", isSignup ? "Create Account" : "Welcome Back!");
+  say("authSub", isSignup ? "নতুন ভল্ট অ্যাকাউন্ট তৈরি করতে তথ্য দিন।" : "আপনার ব্যক্তিগত ভল্ট অ্যাকাউন্টে লগইন করুন।");
+  say("primaryActionBtn", isSignup ? "Sign Up" : "Login");
+  say("switchModeBtn", isSignup ? "Back to Login" : "Create account");
+  say("authMsg", "");
+}
+
+$("switchModeBtn").onclick = () => setMode(mode === "login" ? "signup" : "login");
+
+/* --- FORGOT PASSWORD --- */
+$("forgotBtn").onclick = async () => {
+  const email = $("email").value.trim().toLowerCase();
+  if (!email) {
+    say("authMsg", "আগে Email Address বক্সে আপনার ইমেইল লিখুন।");
+    $("email").focus();
+    return;
+  }
+  const btn = $("forgotBtn");
+  btn.disabled = true;
+  say("authMsg", "রিসেট লিংক পাঠানো হচ্ছে...");
+  try {
+    await sendPasswordResetEmail(auth, email);
+    say("authMsg", "✓ পাসওয়ার্ড রিসেট লিংক ইমেইলে পাঠানো হয়েছে (Inbox ও Spam চেক করুন)।", true);
+  } catch (e) {
+    say("authMsg", friendlyError(e));
+  } finally {
+    btn.disabled = false;
+  }
+};
+
+["name", "email", "password"].forEach(id => {
+  $(id).addEventListener("keydown", e => {
+    if (e.key === "Enter") $("primaryActionBtn").click();
+  });
+});
+
+const userRef = uid => doc(db, "users", uid);
+const vaultRef = uid => collection(db, "users", uid, "vault");
+
+/* --- AUTH SUBMIT --- */
+$("primaryActionBtn").onclick = async () => {
+  const btn = $("primaryActionBtn");
+  const email = $("email").value.trim().toLowerCase();
+  const password = $("password").value;
+
+  if (!email) { say("authMsg", "সঠিক ইমেইল দিন।"); return; }
+  if (!password) { say("authMsg", "পাসওয়ার্ড লিখুন।"); return; }
+
+  btn.disabled = true;
+  say("authMsg", "একটু অপেক্ষা করুন...");
+
+  try {
+    if (mode === "signup") {
+      const name = $("name").value.trim();
+      if (name.length < 2) throw new Error("কমপক্ষে ২ অক্ষরের নাম দিন।");
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(userRef(cred.user.uid), { name, email, createdAt: serverTimestamp() });
+      currentUser = cred.user;
+      records = [];
+    } else {
+      const cred = await signInWithEmailAndPassword(auth, email, password);
+      currentUser = cred.user;
+      const profile = await getDoc(userRef(currentUser.uid));
+      if (!profile.exists()) {
+        await setDoc(userRef(currentUser.uid), { name: email.split("@")[0], email, createdAt: serverTimestamp() });
+      }
+      await loadVault();
+    }
+    $("password").value = "";
+    resetEye("password");
+    showApp();
+  } catch (e) {
+    say("authMsg", friendlyError(e));
+    if (auth.currentUser && !currentUser) await signOut(auth);
+  } finally {
+    btn.disabled = false;
+  }
+};
+
+function friendlyError(e) {
+  const code = e.code || "";
+  if (code.includes("email-already-in-use")) return "এই ইমেইলে অ্যাকাউন্ট আগে থেকেই আছে।";
+  if (code.includes("invalid-email")) return "সঠিক ইমেইল দিন।";
+  if (code.includes("user-not-found")) return "এই ইমেইলে কোনো অ্যাকাউন্ট নেই।";
+  if (code.includes("too-many-requests")) return "অনেকবার চেষ্টা হয়েছে। কিছুক্ষণ পর চেষ্টা করুন।";
+  if (code.includes("weak-password")) return "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।";
+  if (code.includes("invalid-credential") || code.includes("wrong-password")) return "ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।";
+  if (code.includes("permission-denied")) return "Firestore Rules অনুমতি দেয়নি।";
+  return e.message || "কাজটি সম্পন্ন হয়নি।";
+}
+
+/* --- VAULT OPERATIONS --- */
+async function loadVault() {
+  records = [];
+  const snap = await getDocs(vaultRef(currentUser.uid));
+  for (const d of snap.docs) {
+    const data = d.data();
+    records.push({
+      id: d.id,
+      title: data.title || "",
+      category: data.category || "",
+      code: data.code || "",
+      username: data.username || "",
+      secret: data.secret || "",
+      note: data.note || ""
+    });
+  }
+}
+
+async function saveRecord(item) {
+  const payload = {
+    title: item.title,
+    category: item.category,
+    code: item.code,
+    username: item.username,
+    secret: item.secret,
+    note: item.note,
+    updatedAt: serverTimestamp()
+  };
+  const ref = vaultRef(currentUser.uid);
+  if (item.id) await updateDoc(doc(ref, item.id), payload);
+  else await addDoc(ref, { ...payload, createdAt: serverTimestamp() });
+}
+
+function showApp() {
+  $("authView").classList.add("hidden");
+  $("appView").classList.remove("hidden");
+  say("userName", currentUser.displayName || $("name").value || currentUser.email.split("@")[0]);
+  say("userEmail", currentUser.email);
+  render();
+}
+
+function copyText(text, label) {
+  if (!text) return;
+  navigator.clipboard.writeText(text);
+  showToast(`${label} কপি হয়েছে`);
+}
+
+function render() {
+  say("count", records.length);
+  const q = $("search").value.trim().toLowerCase();
+  const found = records.filter(r =>
+    [r.title, r.category, r.code, r.username, r.note].some(v => String(v || "").toLowerCase().includes(q))
+  );
+
+  const root = $("records");
+  root.replaceChildren();
+
+  if (!found.length) {
+    const e = document.createElement("div");
+    e.className = "empty";
+    e.textContent = q ? "কোনো মিল পাওয়া যায়নি।" : "এখনো কোনো তথ্য নেই। '＋ নতুন তথ্য' বাটনে ক্লিক করে যোগ করুন।";
+    root.append(e);
+    return;
+  }
+
+  found.forEach(r => {
+    const card = document.createElement("article");
+    card.className = "item";
+
+    const topWrap = document.createElement("div");
+    const itemTop = document.createElement("div");
+    itemTop.className = "item-top";
+    const cat = document.createElement("span");
+    cat.className = "cat";
+    cat.textContent = r.category || "GENERAL";
+    itemTop.append(cat);
+
+    if (r.code) {
+      const cb = document.createElement("span");
+      cb.className = "code-badge";
+      cb.textContent = "#" + r.code;
+      itemTop.append(cb);
+    }
+
+    const title = document.createElement("h3");
+    title.textContent = r.title;
+
+    const usrRow = document.createElement("div");
+    usrRow.className = "data-row";
+    const usrText = document.createElement("div");
+    usrText.className = "data-text";
+    usrText.innerHTML = `<b>ইউজার:</b> ${r.username || "—"}`;
+    usrRow.append(usrText);
+
+    if (r.username) {
+      const copyUsr = document.createElement("button");
+      copyUsr.className = "icon-btn";
+      copyUsr.textContent = "কপি";
+      copyUsr.onclick = () => copyText(r.username, "ইউজারনেম");
+      usrRow.append(copyUsr);
+    }
+
+    const passRow = document.createElement("div");
+    passRow.className = "data-row";
+    const passText = document.createElement("div");
+    passText.className = "data-text";
+    const passLabel = document.createElement("b");
+    passLabel.textContent = "পাসওয়ার্ড:";
+    const passVal = document.createElement("span");
+    passVal.textContent = "••••••••";
+    passText.append(passLabel, passVal);
+
+    const miniBtns = document.createElement("div");
+    miniBtns.className = "mini-btns";
+
+    const reveal = document.createElement("button");
+    reveal.className = "icon-btn";
+    reveal.textContent = "দেখুন";
+    reveal.onclick = () => {
+      const show = passVal.textContent === "••••••••";
+      passVal.textContent = show ? (r.secret || "—") : "••••••••";
+      reveal.textContent = show ? "লুকান" : "দেখুন";
+    };
+    miniBtns.append(reveal);
+
+    if (r.secret) {
+      const copyPass = document.createElement("button");
+      copyPass.className = "icon-btn";
+      copyPass.textContent = "কপি";
+      copyPass.onclick = () => copyText(r.secret, "পাসওয়ার্ড");
+      miniBtns.append(copyPass);
+    }
+
+    passRow.append(passText, miniBtns);
+    topWrap.append(itemTop, title, usrRow, passRow);
+
+    if (r.note) {
+      const n = document.createElement("div");
+      n.className = "note-box";
+      n.textContent = "📝 " + r.note;
+      topWrap.append(n);
+    }
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+    const edit = document.createElement("button");
+    edit.className = "btn-outline";
+    edit.textContent = "এডিট";
+    edit.onclick = () => openModal(r);
+
+    const del = document.createElement("button");
+    del.className = "btn-del";
+    del.textContent = "ডিলিট";
+    del.onclick = () => removeRecord(r);
+
+    actions.append(edit, del);
+    card.append(topWrap, actions);
+    root.append(card);
+  });
+}
+
+$("search").oninput = render;
+
+function openModal(r = null) {
+  $("modal").classList.remove("hidden");
+  say("modalMsg", "");
+  resetEye("secret");
+  $("modalTitle").textContent = r ? "তথ্য এডিট" : "নতুন তথ্য যোগ";
+  $("recordId").value = r?.id || "";
+  $("title").value = r?.title || "";
+  $("category").value = r?.category || "";
+  $("code").value = r?.code || "";
+  $("username").value = r?.username || "";
+  $("secret").value = r?.secret || "";
+  $("note").value = r?.note || "";
+}
+
+function closeModal() {
+  $("modal").classList.add("hidden");
+  resetEye("secret");
+}
+
+$("addBtn").onclick = () => openModal();
+$("closeModal").onclick = $("cancelBtn").onclick = closeModal;
+$("modal").onclick = e => { if (e.target === $("modal")) closeModal(); };
+
+$("saveBtn").onclick = async () => {
+  const title = $("title").value.trim();
+  if (!title) { say("modalMsg", "নাম / সার্ভিস লিখুন।"); return; }
+  const btn = $("saveBtn");
+  btn.disabled = true;
+  const item = {
+    id: $("recordId").value,
+    title,
+    category: $("category").value.trim(),
+    code: $("code").value.trim(),
+    username: $("username").value.trim(),
+    secret: $("secret").value,
+    note: $("note").value.trim()
+  };
+  try {
+    await saveRecord(item);
+    await loadVault();
+    closeModal();
+    render();
+    showToast(item.id ? "তথ্য আপডেট হয়েছে" : "তথ্য সংরক্ষিত হয়েছে");
+  } catch (e) {
+    say("modalMsg", friendlyError(e));
+  } finally {
+    btn.disabled = false;
+  }
+};
+
+async function removeRecord(r) {
+  if (!confirm(`"${r.title}" রেকর্ডটি মুছে ফেলবেন?`)) return;
+  try {
+    await deleteDoc(doc(vaultRef(currentUser.uid), r.id));
+    await loadVault();
+    render();
+    showToast("রেকর্ড মুছে ফেলা হয়েছে");
+  } catch (e) {
+    alert(friendlyError(e));
+  }
+}
+
+$("logoutBtn").onclick = async () => {
+  records = [];
+  currentUser = null;
+  await signOut(auth);
+  $("appView").classList.add("hidden");
+  $("authView").classList.remove("hidden");
+  setMode("login");
+};
+
+onAuthStateChanged(auth, user => {
+  if (!user) {
+    $("appView").classList.add("hidden");
+    $("authView").classList.remove("hidden");
+  }
+});
+</script>
+</body>
+</html>
